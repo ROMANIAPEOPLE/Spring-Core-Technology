@@ -23,10 +23,10 @@ public class AppConfig {
         return new MemoryMemberRepository();
     }
 
-    @Bean
-    public OrderService orderService(){
-        return new OrderServiceImpl(getDiscountPolicy(), getMemberRepository());
-    }
+//    @Bean
+//    public OrderService orderService(){
+//        return new OrderServiceImpl(getDiscountPolicy(), getMemberRepository());
+//    }
 
     @Bean
     public DiscountPolicy getDiscountPolicy() {

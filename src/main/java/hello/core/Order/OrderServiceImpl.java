@@ -6,7 +6,10 @@ import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrderServiceImpl implements OrderService {
 
 
@@ -15,13 +18,31 @@ public class OrderServiceImpl implements OrderService {
      * 하지만, 이 상태에선 nullpointException이 발생.
      * 누군가가 클라이언트인 OrderServiceImpl에 DiscountPolicy의 구현객체를 생성하고 주입해줘야함.
      */
-    private final DiscountPolicy discountPolicy;
     private final MemberRepository memberRepository;
+    private final DiscountPolicy discountPolicy;
 
-    public OrderServiceImpl(DiscountPolicy discountPolicy, MemberRepository memberRepository) {
-        this.discountPolicy = discountPolicy;
+
+    /**
+     * 생성자로 Bean 주입하는 방법
+     */
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
     }
+
+    /**
+     * Setter로 Bean 주입하는 방법
+     */
+//    @Autowired
+//    public void setMemberRepository(MemberRepository memberRepository) {
+//        this.memberRepository = memberRepository;
+//    }
+//
+//    @Autowired
+//    public void setDiscountPolicy(DiscountPolicy discountPolicy) {
+//        this.discountPolicy = discountPolicy;
+//    }
+
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
