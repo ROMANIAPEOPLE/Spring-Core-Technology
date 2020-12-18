@@ -9,21 +9,20 @@ import javax.annotation.PreDestroy;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SingletonTest {
-
+public class PrototypeTest {
 
     @Test
-    void singletonBeanFind() {
+    void prototypeBeanFind() {
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(SingletonBean.class);
 
         SingletonBean singletonBean1 = ac.getBean(SingletonBean.class);
         SingletonBean singletonBean2 = ac.getBean(SingletonBean.class);
-        assertThat(singletonBean1).isSameAs(singletonBean2);
+        assertThat(singletonBean1).isNotSameAs(singletonBean2);
         ac.close();
+
     }
 
-
-    @Scope("singleton")
+    @Scope("prototype")
     static class SingletonBean {
         @PostConstruct
         public void init() {
